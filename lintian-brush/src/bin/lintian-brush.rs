@@ -842,6 +842,10 @@ fn main() -> Result<(), i32> {
             if let Some(base) = svp.load_resume::<ManyResult>() {
                 overall_result.success.extend(base.success);
             }
+            // silver-platter takes the description from stdout
+            if !overall_result.success.is_empty() {
+                println!("{}", overall_result.describe());
+            }
             let changelog_behaviour = overall_result.changelog_behaviour.clone();
             svp.report_success_debian(
                 Some(overall_result.value()),
